@@ -2,9 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import Fingerprint from "express-fingerprint";
-import AuthRootRouter from "./routers/Auth.js";
-import TokenService from "./services/Token.js";
 import cookieParser from "cookie-parser";
+import {default as routes} from './routes.js';
 
 dotenv.config();
 
@@ -22,7 +21,7 @@ app.use(
   })
 );
 
-require("./routes")(app);
+routes(app);
 //app.use("/auth", AuthRootRouter);
 
 app.listen(PORT, () => {

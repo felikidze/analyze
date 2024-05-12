@@ -1,12 +1,12 @@
-const express = require("express");
-var indexRouter = require("./routes/index");
-var router1Router = require("./routes/router1");
-var router2Router = require("./routes/router2");
+import * as express from "express";
+import {default as indexRouter} from "./routes/index.js";
+import {default as AuthRouter} from "./routes/Auth.js";
+import {default as ParserRouter} from "./routes/Parser.js";
 
-module.exports = function(app) {
+export default function(app) {
   app.use(express.json());
 
   app.use("/", indexRouter);
-  app.use("/router1", router1Router);
-  app.use("/router2", router2Router);
+  app.use("/auth", AuthRouter);
+  app.use("/parse", ParserRouter);
 };
