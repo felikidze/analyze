@@ -1,8 +1,9 @@
 import {TextCollector} from '../collectors/TextCollector.js'
 import {DomainCollector} from "../collectors/DomainCollector.js";
+import {NeuroCollector} from "../collectors/NeuroCollector.js";
 
 class ParserService {
-  static async getData(url) {
+  static async makeAnalyze(url) {
       const objForCollectors = {
           url,
           collectors: {}
@@ -11,9 +12,10 @@ class ParserService {
           TextCollector.getData(objForCollectors),
           DomainCollector.getData(objForCollectors)
       ]);
+      await NeuroCollector.getData(objForCollectors);
+      // objForCollectors содержит в себе инфу с плейн текстом, по домену, по обработке нейронкой
 
-      // objForCollectors содержит в себе инфу с плейн текстом и инфу по домену
-
+      console.log(test);
   }
 }
 

@@ -8,7 +8,7 @@ class ParserController {
     const { fingerprint } = req;
     console.log(`url - ${url}`);
     try {
-      await ParserService.getData(url)
+      await ParserService.makeAnalyze(url)
       return res.sendStatus(200);
     } catch (err) {
       return ErrorsUtils.catchError(res, err);
