@@ -27,7 +27,7 @@ class TokenService {
     }
 
     try {
-      req.user = await TokenService.verifyRefreshToken(token);
+      req.user = await TokenService.verifyAccessToken(token);
       console.log(req.user);
     } catch (error) {
       console.log(error);

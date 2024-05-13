@@ -2,7 +2,7 @@ import pool from "../db.js";
 
 class ScanRepository {
   static async createScan({pageUrl, description, result, authorId, domain_id}) {
-    const response = await pool.query("INSERT INTO scans (url, description, result, authorId, domain_id, created_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [pageUrl, new Date().toISOString()]);
+    const response = await pool.query("INSERT INTO scans (url, description, result, author_id, domain_id, created_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [pageUrl, description, result, authorId, domain_id, new Date().toISOString()]);
 
     return response.rows[0];
   }
@@ -21,6 +21,15 @@ class ScanRepository {
     }
 
     return response.rows[0];
+  }
+  static async getListScan() {
+    const response = await pool.query("SELECT * FROM (SELECT * FROM scans ORDER BY id DESC LIMIT 10) t ORDER BY id");
+
+    if (!response.rows.length) {
+      return null;
+    }
+
+    return response.rows;
   }
 }
 

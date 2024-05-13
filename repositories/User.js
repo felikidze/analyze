@@ -1,8 +1,8 @@
 import pool from "../db.js";
 
 class UserRepository {
-  static async createUser({ userName, hashedPassword, role }) {
-    const response = await pool.query("INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *", [userName, hashedPassword]);
+  static async createUser({ userName, hashedPassword, role, email }) {
+    const response = await pool.query("INSERT INTO users (username, password, email) VALUES ($1, $2, $3) RETURNING *", [userName, hashedPassword, email]);
 
     return response.rows[0];
   }

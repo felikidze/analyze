@@ -38,7 +38,7 @@ class AuthService {
       };
   }
 
-  static async signUp({ userName, password, fingerprint, role }) {
+  static async signUp({ userName, password, fingerprint, role, email }) {
       const userData = await UserRepository.getUserData(userName);
 
       if (userData) {
@@ -50,7 +50,8 @@ class AuthService {
       const {id} = await UserRepository.createUser({
           userName,
           role,
-          hashedPassword
+          hashedPassword,
+          email
       });
 
       const payload = {id, userName, role};
