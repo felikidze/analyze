@@ -26,7 +26,7 @@ class ParserService {
       const host = new URL(url).host;
       const tag = objForCollectors.collectors.neuro.class;
 
-      const {id: domainId} = await DomainRepository.createDomain(host);
+      const {id: domainId} = (await DomainRepository.getDomainData(host))?.id || (await DomainRepository.createDomain(host));
       const {id: scanId} = await ScanRepository.createScan({
           pageUrl: url,
           description: JSON.stringify(objForCollectors.collectors.domain.data),
