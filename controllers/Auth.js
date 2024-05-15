@@ -8,7 +8,10 @@ class AuthController {
     const { fingerprint } = req;
     try {
       const { accessToken, refreshToken, accessTokenExpiration } = await AuthService.signIn({userName, password, fingerprint});
-      return res.sendStatus(200);
+
+      res.cookie("refreshToken", refreshToken, COOKIE_SETTINGS.REFRESH_TOKEN);
+
+      return res.status(200).json({ accessToken, accessTokenExpiration });
     } catch (err) {
       return ErrorsUtils.catchError(res, err);
     }
