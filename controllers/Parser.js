@@ -14,6 +14,17 @@ class ParserController {
       return ErrorsUtils.catchError(res, err);
     }
   }
+  static async makeAnalyzeDomain(req, res) {
+    const { url } = req.body.data;
+    const { fingerprint } = req;
+    console.log(`url - ${url}`);
+    try {
+      await ParserService.makeAnalyzeDomain(url, req.user)
+      return res.sendStatus(200);
+    } catch (err) {
+      return ErrorsUtils.catchError(res, err);
+    }
+  }
 }
 
 export default ParserController;
