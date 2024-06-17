@@ -17,6 +17,8 @@ class DomainService {
                 } else {
                     resObj[url] = {...resObj[url], [name]: +el.count};
                 }
+
+                resObj[url] = {...resObj[url], id}
           });
 
           console.info(response);
