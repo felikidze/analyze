@@ -16,6 +16,16 @@ class UserRepository {
 
     return response.rows[0];
   }
+
+  static async getUserDataById(userId) {
+    const response = await pool.query("SELECT * FROM users where id=$1", [userId]);
+
+    if (!response.rows.length) {
+      return null;
+    }
+
+    return response.rows[0];
+  }
 }
 
 export default UserRepository;

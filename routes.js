@@ -4,6 +4,7 @@ import {default as AuthRouter} from "./routes/Auth.js";
 import {default as ParserRouter} from "./routes/Parser.js";
 import {default as ScanRouter} from "./routes/Scan.js";
 import {default as DomainRouter} from "./routes/Domain.js";
+import {default as ReviewRouter} from "./routes/Review.js";
 
 export default function(app) {
   app.use(express.json());
@@ -13,4 +14,5 @@ export default function(app) {
   app.use("/parse", ParserRouter);
   app.use("/scans", ScanRouter);
   app.use("/domains", DomainRouter);
+  app.use("/reviews", ReviewRouter);
 };
