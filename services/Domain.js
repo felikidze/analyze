@@ -1,8 +1,11 @@
 import DomainRepository from "../repositories/Domain.js";
 
 class DomainService {
-  static async getList() {
-      const domainIds = await DomainRepository.getDomainIds();
+  static async getList(page, pageSize) {
+      const [domainIds, {count}] = await Promise.all([
+          DomainRepository.getDomainIds(pageSize, (page-1)*pageSize),
+          DomainRepository.getTotalDomains()
+      ])
 
       const resObj = {};
 
@@ -24,7 +27,10 @@ class DomainService {
           console.info(response);
       }));
 
-      return resObj;
+      return {
+          list: resObj,
+          total: count
+      };
   }
 }
 

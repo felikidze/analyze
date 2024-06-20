@@ -23,14 +23,24 @@ class DomainRepository {
     return response.rows[0];
   }
 
-  static async getDomainIds() {
-    const response = await pool.query("SELECT id FROM domains");
+  static async getDomainIds(limit, offset) {
+    const response = await pool.query("SELECT id FROM domains LIMIT $1 OFFSET $2", [limit, offset]);
 
     if (!response.rows.length) {
       return null;
     }
 
     return response.rows;
+  }
+
+  static async getTotalDomains() {
+    const response = await pool.query("SELECT COUNT(*) FROM domains");
+
+    if (!response.rows.length) {
+      return null;
+    }
+
+    return response.rows[0];
   }
 
   static async getDomainDataForChart(domainId) {

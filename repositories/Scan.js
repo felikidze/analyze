@@ -22,14 +22,23 @@ class ScanRepository {
 
     return response.rows[0];
   }
-  static async getListScan() {
-    const response = await pool.query("SELECT * FROM (SELECT * FROM scans ORDER BY id DESC LIMIT 10) t ORDER BY id");
+  static async getListScan(limit, offset) {
+    const response = await pool.query("SELECT * FROM (SELECT * FROM scans ORDER BY id DESC LIMIT $1 OFFSET $2) t ORDER BY id", [limit, offset]);
 
     if (!response.rows.length) {
       return null;
     }
 
     return response.rows;
+  }
+  static async getTotalScans() {
+    const response = await pool.query("SELECT COUNT(*) FROM scans");
+
+    if (!response.rows.length) {
+      return null;
+    }
+
+    return response.rows[0];
   }
 }
 
