@@ -8,7 +8,7 @@ class ScanService {
           ScanRepository.getListScan(pageSize, (page-1)*pageSize),
           ScanRepository.getTotalScans()
       ]);
-      await Promise.all(scans.map(async (item) => {
+      await Promise.all(scans?.map(async (item) => {
           const tagId = (await ScanTagRepository.getTagByScan(item.id))?.tag_id;
           item.tag = await TagRepository.getTag(tagId);
 
